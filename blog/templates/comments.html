@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="image">
+        <img src="/{{ blog.image }}" alt="Пример изображения блога" style="height: 100%" class="blog-image">
+    </div>
+    {% if user.is_authenticated %}
+        <form class="form" method="post">
+            {% csrf_token %}
+            <h2>Оставить комментарий</h2>
+            <textarea id="comment" name="comment" rows="4" cols="50" required></textarea><br>
+            <button type="submit">Отправить комментарий</button>
+        </form>
+    {% endif %}
+    <div class="comments">
+        <h2>Комментарии</h2>
+        {% for comment in comments %}
+            <div class="comment">
+                <strong>{{ comment.username }}:</strong>
+                <p>{{ comment.comment }}</p>
+                <p>{{ comment.created_at }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

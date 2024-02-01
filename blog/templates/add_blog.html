@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Блог с загрузкой картинки
+{% endblock %}
+
+{% block content %}
+{% if object.title %}
+    <h1>Редактировать блог</h1>
+{% else %}
+    <h1>Создание блога</h1>
+{% endif %}
+<form class="form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="title">Заголовок блога:</label>
+    <input type="text" id="title" name="title" value="{{ object.title }}" required><br>
+
+    <label for="content">Содержание блога:</label>
+    <textarea id="content" name="content" rows="4" cols="50" required>{{ object.content }}</textarea><br>
+
+    <label for="tags">Теги:</label>
+    <input type="text" id="tags" name="tags" placeholder="Введите теги через запятую" required><br>
+
+    <label for="image">Загрузить изображение:</label>
+    <input type="file" id="image" name="image" accept="image/*" value="/{{ object.image }}"><br>
+    {% if object.title %}
+        <img src="/{{ object.image }}" alt="Пример изображения блога" style="height: 100%" class="blog-image">
+    {% endif %}
+    <input type="submit" value="Опубликовать блог">
+    {% if object.title %}
+        <a href="/delete_blog/{{ object.pk }}/">
+            <input type="button" value="Удалить блог">
+        </a>
+    {% endif %}
+</form>
+{% endblock %}

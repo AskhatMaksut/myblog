@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Блог{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Дополнительные стили или скрипты -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'my_blogs' %}">Мои блоги</a></li>
+                <li><a href="{% url 'add_blog' %}">Добавить блог</a></li>
+                <li><a href="{% url 'logout' %}">Выйти из аккаунта</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Авторизоваться</a></li>
+                <li><a href="{% url 'register' %}">Зарегистрироваться</a></li>
+            {% endif %}
+            <!-- Дополнительные ссылки на страницы -->
+        </ul>
+    </nav>
+    <h1>Мой блог</h1>
+    <div class="search-form-container">
+        <form class="search-form" method="get" action="/search">
+            <input type="text" name="q" placeholder="Поиск..." required>
+            <button type="submit">Искать</button>
+        </form>
+    </div>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer>
+    <p>&copy; 2024 Мой блог</p>
+</footer>
+
+<script src="{% static 'js/main.js' %}"></script>
+<!-- Дополнительные скрипты -->
+{% block extra_js %}{% endblock %}
+</body>
+</html>

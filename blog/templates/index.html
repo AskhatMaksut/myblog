@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Опубликованные блоги{% endblock %}
+
+{% block content %}
+<h1>Опубликованные блоги</h1>
+
+<div class="blog-container">
+    {% for object in object_list %}
+        <a href="/add_comment/{{ object.pk }}">
+            <div class="blog-card">
+                <img src="/{{ object.image }}" alt="Пример изображения блога" class="blog-image">
+                <div class="blog-content">
+                    <h2>{{ object.title }}</h2>
+                    <p>{{ object.content }}</p>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+
+</div>
+{% endblock %}
