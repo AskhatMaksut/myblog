@@ -73,6 +73,7 @@ class EditBlogView(UpdateView):
         get_object_or_404(Blog,
             pk=kwargs['pk'], author_id=request.user.id
         )
+        Blog.objects.get(pk=kwargs['pk']).image.delete(False)
         return super().post(request, *args, **kwargs)
 
 
@@ -92,6 +93,7 @@ class DeleteBlogView(DeleteView):
         get_object_or_404(Blog,
                           pk=kwargs['pk'], author_id=request.user.id
                           )
+        Blog.objects.get(pk=kwargs['pk']).image.delete(False)
         return super().post(request, *args, **kwargs)
 
 

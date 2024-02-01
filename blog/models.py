@@ -15,4 +15,3 @@ class Comment(models.Model):
     username = models.CharField(max_length=50)
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-
